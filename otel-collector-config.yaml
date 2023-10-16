@@ -1,0 +1,23 @@
+receivers:
+  otlp:
+    protocols:
+      http:
+
+exporters:
+  datadog/api:
+    env: "luan.gomes-local"
+    service: "test-service"
+    version: "1.0"
+    api:
+      key: ""
+
+processors:
+  batch:
+    timeout: 10s
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [datadog/api]
